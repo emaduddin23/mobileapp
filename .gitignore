@@ -1,0 +1,8 @@
+node_modules/
+app/*.apk
+*.apk
+.tmp/
+allure-results/
+allure-report/
+logs/
+*.log
