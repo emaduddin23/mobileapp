@@ -54,7 +54,7 @@ capabilities: [{
     platformName: 'Android',
     'appium:deviceName': 'sdk_gphone16k_x86_64',
     'appium:automationName': 'UiAutomator2',
-    'appium:app': 'C:\\Users\\SQA-PC\\Desktop\\mobileapp\\app\\app-release.apk',
+    'appium:app': require('path').join(__dirname, 'app', 'app-release.apk'),
     'appium:autoGrantPermissions': true,
 }],
     //
