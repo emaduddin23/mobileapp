@@ -1,0 +1,45 @@
+name: Android Automation Tests
+
+on:
+  push:
+    branches: [ main, userlogin ]
+  pull_request:
+    branches: [ main, userlogin ]
+
+jobs:
+  test:
+    runs-on: macos-latest # Apple Silicon macOS runner is faster for emulator tests
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Appium drivers
+        run: npx appium driver install uiautomator2
+
+      - name: Run Appium tests on Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: arm64-v8a
+          force-avd-creation: false
+          emulator-options: -no-window -gpu off -no-audio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            # Start Appium server in background
+            npx appium --port 4723 &
+            
+            # Wait for Appium to start up
+            sleep 10
+            
+            # Run the test command
+            npm run runtest
