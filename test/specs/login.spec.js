@@ -17,8 +17,15 @@ describe('My Login application', () => {
             const securePage = new SecurePage(driver)
             
             // Assertions to verify welcome header is visible
+            console.log("👉 Verifying successful navigation to Dashboard...");
+            console.log("👉 Checking for 'Welcome back' banner...");
             await expect(securePage.welcomeMessage).toBeExisting()
+            console.log("👉 'Welcome back' banner verified.");
+
+            console.log("👉 Checking for Username banner ('Majedul Islam')...");
             await expect(securePage.welcomeName).toBeExisting()
+            console.log("👉 Username banner verified successfully.");
+            console.log("✅ E2E Login Automation Test Passed Successfully!");
             
             // Pause to ensure we can view/capture state if needed
             await driver.pause(5000)
