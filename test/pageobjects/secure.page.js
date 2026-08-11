@@ -4,13 +4,15 @@ const Page = require('./page');
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class SecurePage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get flashAlert () {
-        return $('#flash');
+class SecurePage {
+    constructor(driver) {
+        this.driver = driver;
+        this.welcomeMessage = driver.$('android=new UiSelector().descriptionContains("Welcome back")');
+        this.welcomeName    = driver.$('android=new UiSelector().descriptionContains("Majedul Islam")');
     }
 }
 
-module.exports = new SecurePage();
+module.exports = SecurePage;
+
+
+
