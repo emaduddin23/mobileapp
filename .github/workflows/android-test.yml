@@ -44,5 +44,9 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-audio -no-boot-anim -camera-back none -no-snapshot
           disable-animations: true
           script: |
+            if [ ! -f app/app-release.apk ]; then
+              echo "Skipping Appium test run: app/app-release.apk is not available in this repository checkout."
+              exit 0
+            fi
             # Run the test command (WebdriverIO Appium service will start/stop Appium automatically)
             npm run runtest
