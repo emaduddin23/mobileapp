@@ -1,5 +1,18 @@
-# name: Android Automation Tests
-# 
+name: Android Automation Tests (Disabled)
+
+# The original workflow has been commented out to disable it.
+# GitHub Actions requires a valid workflow structure, so a dummy manual trigger is provided below.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  disabled:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This workflow is currently disabled."
+
+# --- Original Content Below ---
 # on:
 #   push:
 #     branches: [ main, userlogin ]
@@ -46,4 +59,3 @@
 #           script: |
 #             # Run the test command (WebdriverIO Appium service will start/stop Appium automatically)
 #             npm run runtest
-# 
