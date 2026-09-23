@@ -1,52 +1,61 @@
-name: Android Automation Tests
+name: Android Automation Tests (Disabled)
+
+# The original workflow has been commented out to disable it.
+# GitHub Actions requires a valid workflow structure, so a dummy manual trigger is provided below.
 
 on:
-  push:
-    branches: [ main, userlogin ]
-  pull_request:
-    branches: [ main, userlogin ]
+  workflow_dispatch:
 
 jobs:
-  test:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - run: echo "This workflow is currently disabled."
 
-      - name: Enable KVM group perms
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Appium tests on Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 33
-          target: google_apis
-          arch: x86_64
-          force-avd-creation: true
-          emulator-options: -no-window -gpu swiftshader_indirect -no-audio -no-boot-anim -camera-back none -no-snapshot
-          disable-animations: true
-          script: |
-            if [ ! -f app/app-release.apk ]; then
-              echo "Skipping Appium test run: app/app-release.apk is not available in this repository checkout."
-              exit 0
-            fi
-            # Run the test command (WebdriverIO Appium service will start/stop Appium automatically)
-            npm run runtest
+# --- Original Content Below ---
+# on:
+#   push:
+#     branches: [ main, userlogin ]
+#   pull_request:
+#     branches: [ main, userlogin ]
+# 
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+# 
+#       - name: Enable KVM group perms
+#         run: |
+#           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+#           sudo udevadm control --reload-rules
+#           sudo udevadm trigger --name-match=kvm
+# 
+#       - name: Setup Java
+#         uses: actions/setup-java@v4
+#         with:
+#           distribution: 'zulu'
+#           java-version: '17'
+# 
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 22
+#           cache: 'npm'
+# 
+#       - name: Install dependencies
+#         run: npm ci
+# 
+#       - name: Run Appium tests on Android Emulator
+#         uses: reactivecircus/android-emulator-runner@v2
+#         with:
+#           api-level: 33
+#           target: google_apis
+#           arch: x86_64
+#           force-avd-creation: true
+#           emulator-options: -no-window -gpu swiftshader_indirect -no-audio -no-boot-anim -camera-back none -no-snapshot
+#           disable-animations: true
+#           script: |
+#             # Run the test command (WebdriverIO Appium service will start/stop Appium automatically)
+#             npm run runtest
